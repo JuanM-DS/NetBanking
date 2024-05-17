@@ -33,7 +33,6 @@ CREATE TABLE CurrentAccounts (
     AccountNumber VARCHAR(20) NOT NULL UNIQUE,
     UserId INT NOT NULL,
     Balance DECIMAL(15, 2) NOT NULL,
-    AccountType VARCHAR(20) NOT NULL,
     OpeningDate DATE NOT NULL,
     AccountStatus VARCHAR(20),
     DailyWithdrawalLimit DECIMAL(15, 2) not null,
