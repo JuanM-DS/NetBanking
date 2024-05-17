@@ -17,7 +17,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             entity.ToTable("Users");
             entity.HasKey(e => e.Id).HasName("PK__Users__1788CC4C7C7559D2");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4EE02EB06").IsUnique();
+            entity.HasIndex(e => e.UserName, "UQ__Users__536C85E4EE02EB06").IsUnique();
 
             entity.HasIndex(e => e.Email, "UQ__Users__A9D10534DFF426E4").IsUnique();
 
@@ -46,7 +46,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.Username)
+            entity.Property(e => e.UserName).HasColumnName("Username")
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.BirthDate).HasColumnType("date");
