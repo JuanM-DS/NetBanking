@@ -1,0 +1,33 @@
+# Ignorar la carpeta de configuración de VS
+.vs/
+
+# Ignorar las carpetas de compilación
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Ignorar los archivos generados por la compilación en .NET
+*.exe
+*.dll
+*.pdb
+
+# Ignorar otros archivos y carpetas comunes
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.suo
+*.tlog
+*.userprefs
+*.ide
+*.builds
+*.pidb
+*.svclog
+*.scc
