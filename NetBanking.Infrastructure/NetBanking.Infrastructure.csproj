@@ -19,8 +19,4 @@
     <ProjectReference Include="..\NetBanking.Core\NetBanking.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\UnitOfWork\" />
-  </ItemGroup>
-
 </Project>

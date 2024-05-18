@@ -21,7 +21,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             var entity = await GetByIdAsync(id);
 
             if(entity == null)
-                throw new PersistenceLogicException($"Entity with id: {id}, not exists");
+                throw new PersistenceException($"Entity with id: {id}, not exists");
 
             _entity.Remove(entity);
         }
@@ -35,7 +35,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
         {
             var entity = await _entity.FindAsync(id);
             if (entity == null)
-                throw new PersistenceLogicException($"Entity with id: {id}, not found");
+                throw new PersistenceException($"Entity with id: {id}, not found");
 
             return entity;
         }
@@ -51,7 +51,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             var exists = ((await _entity.FindAsync(id)) == null)? false : true;
 
             if (exists)
-                throw new PersistenceLogicException($"Entity with id:{id}, not exists");
+                throw new PersistenceException($"Entity with id:{id}, not exists");
 
             _entity.Update(entity);
         }

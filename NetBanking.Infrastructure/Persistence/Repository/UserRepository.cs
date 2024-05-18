@@ -23,7 +23,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             var isUserNameValid = (_entity.Where(x => x.UserName == username) != null) ? true : false;
 
             if (isUserNameValid)
-                throw new PersistenceLogicException("The UserName is already in use");
+                throw new PersistenceException("The UserName is already in use");
             #endregion
             
             #region email
@@ -31,7 +31,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             var isEmailValid = (_entity.Where(x => x.Email == email) != null) ? true : false;
 
             if (isEmailValid)
-                throw new PersistenceLogicException("The Email is already in use");
+                throw new PersistenceException("The Email is already in use");
 
             #endregion
 

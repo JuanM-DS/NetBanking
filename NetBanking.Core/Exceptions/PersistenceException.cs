@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Exceptions
 {
-    public class PersistenceLogicException : Exception
+    public class PersistenceException : Exception
     {
-        public PersistenceLogicException(string message) : base(message)
+        public PersistenceException(string message) : base(message)
         {
         }
     }
