@@ -11,7 +11,7 @@ CREATE TABLE Users (
     BirthDate DATE,
     PhoneNumber VARCHAR(20),
     [Address] VARCHAR(100),
-    RegistrationDate DATE not null,
+    RegistrationDate DATE not null, 
     AccountStatus VARCHAR(20),
 );
 
