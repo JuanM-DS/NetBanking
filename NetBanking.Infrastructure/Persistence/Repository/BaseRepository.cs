@@ -26,7 +26,7 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             _entity.Remove(entity);
         }
 
-        public IEnumerable<T> GetAllAsync()
+        public IEnumerable<T> GetAll()
         {
             return _entity.AsEnumerable();
         }

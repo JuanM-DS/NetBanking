@@ -26,7 +26,7 @@ public partial class User : BaseEntity
 
     public DateOnly RegistrationDate { get; set; }
 
-    public StatusType AccountStatus { get; set; }
+    public StatusType AccountStatus { get; set; } = StatusType.active;
 
     public virtual ICollection<BankTransaction> BankTransactionIssuerUsers { get; set; } = new List<BankTransaction>();
 

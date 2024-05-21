@@ -15,7 +15,7 @@ namespace NetBanking.Core.Interfaces.Persistence
 
         public Task DeleteAsync(int id);
 
-        public IEnumerable<T> GetAllAsync();
+        public IEnumerable<T> GetAll();
 
         public Task<T> GetByIdAsync(int id);
     }

@@ -24,14 +24,14 @@ namespace NetBanking.Infrastructure.Persistence.UnitOfWork
         public IBaseRepository<UserLogin> UserLoginRepository { get; } = new BaseRepository<UserLogin>(context);
         #endregion
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public async Task SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
     }
 }

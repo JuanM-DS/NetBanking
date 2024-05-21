@@ -28,8 +28,8 @@ namespace NetBanking.Core.Interfaces.Persistence
         public IBaseRepository<UserLogin> UserLoginRepository { get;}
 
 
-        public Task SaveChangesAsync();
+        public Task<int> SaveChangesAsync();
 
-        public void SaveChanges();
+        public int SaveChanges();
     }
 }
