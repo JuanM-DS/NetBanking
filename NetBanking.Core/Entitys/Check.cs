@@ -18,7 +18,7 @@ public partial class Check : BaseEntity
 
     public string ReceiverName { get; set; } = null!;
 
-    public StatusType CheckStatus { get; set; }
+    public CheckStatus CheckStatus { get; set; }
 
     public virtual CurrentAccount Account { get; set; } = null!;
 }

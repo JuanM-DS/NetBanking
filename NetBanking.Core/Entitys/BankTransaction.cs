@@ -20,6 +20,7 @@ public partial class BankTransaction : BaseEntity
     public int ReceiverUserId { get; set; }
 
     public string? DestinationIdentifier { get; set; }
+    public string? OriginIdentifier { get; set; }
 
     public virtual User IssuerUser { get; set; } = null!;
 

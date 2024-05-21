@@ -1,6 +1,7 @@
 ﻿using NetBanking.Core.Enumerables;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NetBanking.Core.Entitys;
 
@@ -42,4 +43,12 @@ public partial class User : BaseEntity
     public virtual ICollection<Voucher> VoucherIssuerUsers { get; set; } = new List<Voucher>();
 
     public virtual ICollection<Voucher> VoucherReceiverUsers { get; set; } = new List<Voucher>();
+
+    public IEnumerable<BaseProduct> Products
+    {
+        get
+        {
+            return new List<BaseProduct>().Concat(SavingsAccounts).Concat(CurrentAccounts).Concat(CreditCards);
+        }
+    }
 }

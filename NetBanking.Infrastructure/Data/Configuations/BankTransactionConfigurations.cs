@@ -28,6 +28,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             builder.Property(X => X.IssuerUserId);
             builder.Property(X => X.ReceiverUserId);
             builder.Property(X => X.DestinationIdentifier).HasMaxLength(20);
+            builder.Property(X => X.OriginIdentifier).HasMaxLength(20);
 
             builder.HasOne(x=>x.IssuerUser).WithMany(d=>d.BankTransactionIssuerUsers)
                 .HasForeignKey(x=>x.IssuerUserId)

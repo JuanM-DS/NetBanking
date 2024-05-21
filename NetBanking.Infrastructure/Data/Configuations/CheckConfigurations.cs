@@ -28,7 +28,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             builder.Property(x => x.ReceiverName).HasMaxLength(100);
             builder.Property(x => x.CheckStatus).HasConversion(
                 x => x.ToString(),
-                x => (StatusType)Enum.Parse(typeof(StatusType),x)
+                x => (CheckStatus)Enum.Parse(typeof(CheckStatus),x)
                 );
 
             builder.HasOne(x=>x.Account).WithMany(d=>d.Checks)
