@@ -1,7 +1,11 @@
-﻿using NetBanking.Core.Entitys;
+﻿using Microsoft.Extensions.Options;
+using NetBanking.Core.CustomEntitys;
+using NetBanking.Core.EntityFilters;
+using NetBanking.Core.Entitys;
 using NetBanking.Core.Exceptions;
 using NetBanking.Core.Interfaces.Persistence;
 using NetBanking.Core.Interfaces.Services;
+using NetBanking.Core.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Services
 {
-    public class UserServices(IUnitOfWork unitOfWork) : IUserServices
+    public class UserServices(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions) : IUserServices
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-
+        private readonly PaginationOptions _paginationOptions = paginationOptions.Value;
         private const int minimumAge = 18;
 
         public async Task AddAsync(User user)
@@ -34,8 +38,14 @@ namespace NetBanking.Core.Services
 
         public async Task DeleteAsync(int idModel)
         {
-            await _unitOfWork.UserRepository.DeleteAsync(idModel);
+            //validation
+            var model = await _unitOfWork.UserRepository.GetByIdAsync(idModel);
 
+            if (model == null)
+                throw new ServicesExceptions($"The User with id:{idModel} not exists");
+
+            // delete
+            _unitOfWork.UserRepository.Delete(model);
             try
             {
                 await _unitOfWork.SaveChangesAsync();
@@ -46,22 +56,56 @@ namespace NetBanking.Core.Services
             }
         }
 
-        public IEnumerable<User> GetAll()
+        public PagedList<User> GetAll(UserQueryFilters filters)
         {
-            return _unitOfWork.UserRepository.GetAll();
+            var users = _unitOfWork.UserRepository.GetAll();
+
+            filters.CurrentPage = (filters.CurrentPage == 0) ? _paginationOptions.CurrentPage : filters.CurrentPage;
+            filters.PageSize = (filters.PageSize == 0) ? _paginationOptions.PageSize : filters.PageSize;
+
+            #region User Filters
+            if (filters.UserName != null)
+                users = users.Where(x => x.UserName == filters.UserName);
+
+            if(filters.FirstName != null)
+                users = users.Where(x => x.FirstName == filters.FirstName);
+
+            if (filters.LastName != null)
+                users = users.Where(x => x.LastName == filters.LastName);
+
+            if(filters.Email != null)
+                users = users.Where(x => x.Email == filters.Email);
+
+            if(filters.BirthDateYear != null)
+                users = users.Where(x => Convert.ToDateTime(x.BirthDate).Year == filters.BirthDateYear);
+
+            if(filters.UserStatus != null)
+                users = users.Where(x => x.UserStatus == filters.UserStatus);
+            #endregion
+
+            var pagedList = PagedList<User>.Create(users, filters.CurrentPage, filters.PageSize); 
+            return pagedList;
         }
 
-        public async Task<User> GetByIdAsync(int idModel)
+        public async Task<User?> GetByIdAsync(int idModel)
         {
             return await _unitOfWork.UserRepository.GetByIdAsync(idModel);
         }
 
         public async Task UpdateAsync(User user)
         {
+            //validation
+            var idModel = user.Id;
+
+            var model = await _unitOfWork.UserRepository.GetByIdAsync(idModel);
+
+            if (model == null)
+                throw new ServicesExceptions($"The User with id:{idModel} not exists");
+
             validateUser(user);
 
-            await _unitOfWork.UserRepository.UpdateAsync(user);
-
+            //update
+            _unitOfWork.UserRepository.Update(user);
             try
             {
                 await _unitOfWork.SaveChangesAsync();

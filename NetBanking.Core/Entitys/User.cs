@@ -26,7 +26,7 @@ public partial class User : BaseEntity
 
     public DateOnly RegistrationDate { get; set; }
 
-    public StatusType AccountStatus { get; set; } = StatusType.active;
+    public StatusType UserStatus { get; set; } = StatusType.active;
 
     public virtual ICollection<BankTransaction> BankTransactionIssuerUsers { get; set; } = new List<BankTransaction>();
 
@@ -44,11 +44,5 @@ public partial class User : BaseEntity
 
     public virtual ICollection<Voucher> VoucherReceiverUsers { get; set; } = new List<Voucher>();
 
-    public IEnumerable<BaseProduct> Products
-    {
-        get
-        {
-            return new List<BaseProduct>().Concat(SavingsAccounts).Concat(CurrentAccounts).Concat(CreditCards);
-        }
-    }
+    public IEnumerable<BaseProduct> Products => new List<BaseProduct>().Concat(SavingsAccounts).Concat(CurrentAccounts).Concat(CreditCards);
 }

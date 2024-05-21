@@ -1,4 +1,6 @@
-﻿using NetBanking.Core.Entitys;
+﻿using NetBanking.Core.CustomEntitys;
+using NetBanking.Core.EntityFilters;
+using NetBanking.Core.Entitys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,8 @@ namespace NetBanking.Core.Interfaces.Services
 
         public Task DeleteAsync(int idModel);
 
-        public Task<User> GetByIdAsync(int idModel);
+        public Task<User?> GetByIdAsync(int idModel);
 
-        public IEnumerable<User> GetAll();
+        public PagedList<User> GetAll(UserQueryFilters filters);
     }
 }

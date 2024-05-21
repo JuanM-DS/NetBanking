@@ -16,14 +16,9 @@ namespace NetBanking.Infrastructure.Persistence.Repository
     {
         protected DbSet<T> _entity = context.Set<T>();
 
-        public async Task DeleteAsync(int id)
+        public void Delete(T Model)
         {
-            var entity = await GetByIdAsync(id);
-
-            if(entity == null)
-                throw new PersistenceException($"Entity with id: {id}, not exists");
-
-            _entity.Remove(entity);
+            _entity.Remove(Model);
         }
 
         public IEnumerable<T> GetAll()
@@ -31,29 +26,19 @@ namespace NetBanking.Infrastructure.Persistence.Repository
             return _entity.AsEnumerable();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            var entity = await _entity.FindAsync(id);
-            if (entity == null)
-                throw new PersistenceException($"Entity with id: {id}, not found");
-
-            return entity;
+            return await _entity.FindAsync(id);
         }
 
-        public async virtual Task AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
             await _entity.AddAsync(entity);
         }
 
-        public async Task UpdateAsync(T entity)
+        public void Update(T Model)
         {
-            var id = entity.Id;
-            var exists = ((await _entity.FindAsync(id)) == null)? false : true;
-
-            if (exists)
-                throw new PersistenceException($"Entity with id:{id}, not exists");
-
-            _entity.Update(entity);
+            _entity.Update(Model);
         }
     }
 }

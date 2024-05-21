@@ -23,7 +23,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             builder.Property(x => x.UserId);
             builder.Property(x=>x.Balance).HasColumnType("decimal(15,2)");
             builder.Property(x => x.OpeningDate).HasColumnType("date");
-            builder.Property(x => x.ProductStatus).HasColumnName("AccountStatus").HasConversion(
+            builder.Property(x => x.ProductStatus).HasColumnName("UserStatus").HasConversion(
                 x=>x.ToString(),
                 x=>(StatusType)Enum.Parse(typeof(StatusType),x)
                 );

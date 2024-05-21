@@ -11,12 +11,12 @@ namespace NetBanking.Core.Interfaces.Persistence
     {
         public Task AddAsync(T entity);
 
-        public Task UpdateAsync(T entity);
+        public void Update(T entity);
 
-        public Task DeleteAsync(int id);
+        public void Delete(T model);
 
         public IEnumerable<T> GetAll();
 
-        public Task<T> GetByIdAsync(int id);
+        public Task<T?> GetByIdAsync(int id);
     }
 }

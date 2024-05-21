@@ -21,7 +21,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
 
             entity.HasIndex(e => e.Email, "UQ__Users__A9D10534DFF426E4").IsUnique();
 
-            entity.Property(e => e.AccountStatus).HasColumnName("ProductStatus")
+            entity.Property(e => e.UserStatus).HasColumnName("UserStatus")
                 .HasConversion(
                     x => x.ToString(),
                     x => (StatusType)Enum.Parse(typeof(StatusType),x)

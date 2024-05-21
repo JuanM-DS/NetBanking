@@ -23,7 +23,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("AccountNumber");
-            entity.Property(e => e.ProductStatus).HasColumnName("AccountStatus")
+            entity.Property(e => e.ProductStatus).HasColumnName("UserStatus")
                   .HasConversion(
                     x=>x.ToString(),
                     x=>(StatusType)Enum.Parse(typeof(StatusType), x)

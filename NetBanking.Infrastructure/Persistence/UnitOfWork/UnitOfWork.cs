@@ -13,7 +13,7 @@ namespace NetBanking.Infrastructure.Persistence.UnitOfWork
     public class UnitOfWork(NetBankingDbContext context) : IUnitOfWork
     {
         #region Properties
-        public IUserRepository UserRepository { get; } = new UserRepository(context);
+        public IBaseRepository<User> UserRepository { get; } = new BaseRepository<User>(context);
         public IBaseRepository<SavingAccount> SavingAccountRepository { get; } = new BaseRepository<SavingAccount>(context);
         public IBaseRepository<CurrentAccount> CurrentAccountRepository { get; } = new BaseRepository<CurrentAccount>(context);
         public IBaseRepository<Loan> LoanRepository { get; } = new BaseRepository<Loan>(context);

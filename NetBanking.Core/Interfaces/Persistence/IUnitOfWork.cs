@@ -9,7 +9,7 @@ namespace NetBanking.Core.Interfaces.Persistence
 {
     public interface IUnitOfWork
     {
-        public IUserRepository UserRepository { get; }
+        public IBaseRepository<User> UserRepository { get; }
 
         public IBaseRepository<SavingAccount> SavingAccountRepository { get;}
 
