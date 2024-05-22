@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Entitys
 {
-    public class BaseProduct : BaseEntity
+    public interface IBaseProduct
     {
-        public string IdentifierNumber { get; set; } = null!;
+        public string IdentifierNumber { get; set; }
 
         public int UserId { get; set; }
 
@@ -25,6 +25,5 @@ namespace NetBanking.Core.Entitys
 
         public ProductType ProducType { get; set; }
 
-        public virtual User User { get; set; } = null!;
     }
 }

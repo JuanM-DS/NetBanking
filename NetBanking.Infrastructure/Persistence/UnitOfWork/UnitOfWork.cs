@@ -18,7 +18,7 @@ namespace NetBanking.Infrastructure.Persistence.UnitOfWork
         public IBaseRepository<CurrentAccount> CurrentAccountRepository { get; } = new BaseRepository<CurrentAccount>(context);
         public IBaseRepository<Loan> LoanRepository { get; } = new BaseRepository<Loan>(context);
         public IBaseRepository<CreditCard> CreditCardRepository { get; } = new BaseRepository<CreditCard>(context);
-        public IBaseRepository<Check> CheckRepository { get; } = new BaseRepository<Check>(context);
+        public ICheckRepository CheckRepository { get; } = new CheckRepository(context);
         public IBaseRepository<Voucher> VoucherRepository { get; } = new BaseRepository<Voucher>(context);
         public IBaseRepository<BankTransaction> BankTransactionRepository { get; } = new BaseRepository<BankTransaction>(context);
         public IBaseRepository<UserLogin> UserLoginRepository { get; } = new BaseRepository<UserLogin>(context);

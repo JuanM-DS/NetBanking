@@ -19,7 +19,7 @@ namespace NetBanking.Core.Interfaces.Persistence
 
         public IBaseRepository<CreditCard> CreditCardRepository { get; }
 
-        public IBaseRepository<Check> CheckRepository { get; }
+        public ICheckRepository CheckRepository { get; }
 
         public IBaseRepository<Voucher> VoucherRepository { get; }
 

@@ -16,8 +16,6 @@ namespace NetBanking.Infrastructure.Data.Configuations
         {
             builder.ToTable("CreditCards");
 
-            builder.HasKey(x => x.Id).HasName("PK__CreditCa__55FECDAEB019CA6B");
-
             builder.HasIndex(x=>x.IdentifierNumber, "UQ__CreditCa__A4E9FFE91010947C").IsUnique();
 
             builder.Property(x => x.Id).HasColumnName("CardId");
@@ -36,7 +34,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
                 );
             builder.Property(x => x.LastTransactionDate).HasColumnType("datetime");
 
-            builder.HasOne(x=>x.User).WithMany(x=>x.CreditCards)
+            builder.HasOne(x=>x.User).WithMany(d=>d.CreditCards)
                 .HasForeignKey(x=>x.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CreditCar__UserI__46E78A0C");

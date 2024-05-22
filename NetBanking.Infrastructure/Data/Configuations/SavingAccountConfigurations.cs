@@ -15,7 +15,6 @@ namespace NetBanking.Infrastructure.Data.Configuations
         public void Configure(EntityTypeBuilder<SavingAccount> entity)
         {
             entity.ToTable("SavingsAccounts");
-            entity.HasKey(e => e.Id).HasName("PK__SavingsA__349DA5A640E06088");
 
             entity.HasIndex(e => e.IdentifierNumber, "UQ__SavingsA__BE2ACD6FD8C51357").IsUnique();
 

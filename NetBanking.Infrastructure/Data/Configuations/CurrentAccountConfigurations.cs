@@ -15,7 +15,6 @@ namespace NetBanking.Infrastructure.Data.Configuations
         public void Configure(EntityTypeBuilder<CurrentAccount> builder)
         {
             builder.ToTable("CurrentAccounts");
-            builder.HasKey(x => x.Id).HasName("PK__CurrentA__349DA5A65F8B077C");
             builder.HasIndex(x => x.IdentifierNumber, "UQ__CurrentA__BE2ACD6F21F1E4F8").IsUnique();
 
             builder.Property(x => x.Id).HasColumnName("AccountId").IsUnicode(false);

@@ -22,7 +22,7 @@ namespace NetBanking.Core.Services
 
         public async Task AddAsync(User user)
         {
-            validateUser(user);
+            ValidateUser(user);
 
             // insert
             await _unitOfWork.UserRepository.AddAsync(user);
@@ -38,11 +38,10 @@ namespace NetBanking.Core.Services
 
         public async Task DeleteAsync(int idModel)
         {
-            //validation
+            //validations
+            await ExistsUser(idModel);
+           
             var model = await _unitOfWork.UserRepository.GetByIdAsync(idModel);
-
-            if (model == null)
-                throw new ServicesExceptions($"The User with id:{idModel} not exists");
 
             // delete
             _unitOfWork.UserRepository.Delete(model);
@@ -94,15 +93,9 @@ namespace NetBanking.Core.Services
 
         public async Task UpdateAsync(User user)
         {
-            //validation
-            var idModel = user.Id;
-
-            var model = await _unitOfWork.UserRepository.GetByIdAsync(idModel);
-
-            if (model == null)
-                throw new ServicesExceptions($"The User with id:{idModel} not exists");
-
-            validateUser(user);
+            //validations
+            await ExistsUser(user.Id);
+            ValidateUser(user);
 
             //update
             _unitOfWork.UserRepository.Update(user);
@@ -116,14 +109,14 @@ namespace NetBanking.Core.Services
             }
         }
 
-        private void validateUser(User user)
+        private void ValidateUser(User user)
         {
             //business validations
 
             #region UserName
             var userName = user.UserName;
 
-            var isUserNameValid = _unitOfWork.UserRepository.GetAll().Where(x => x.UserName == userName).Count() == 0;
+            var isUserNameValid = !_unitOfWork.UserRepository.GetAll().Any(x => x.UserName == userName);
 
             if (isUserNameValid)
                 throw new ServicesExceptions($"The user name:{userName} already exists");
@@ -132,7 +125,7 @@ namespace NetBanking.Core.Services
             #region UserEmail
             var userEmail = user.Email;
 
-            var isUserEmailValid = _unitOfWork.UserRepository.GetAll().Where(x => x.Email == userEmail).Count() == 0;
+            var isUserEmailValid =!_unitOfWork.UserRepository.GetAll().Any(x => x.Email == userEmail);
 
             if (isUserNameValid)
                 throw new ServicesExceptions($"The user email:{userEmail} already exists");
@@ -155,6 +148,15 @@ namespace NetBanking.Core.Services
                 throw new ServicesExceptions($"The user must to be older");
             #endregion
 
+        }
+    
+        private async Task ExistsUser(int id)
+        {
+            //validation
+            var model = await _unitOfWork.UserRepository.GetByIdAsync(id);
+
+            if (model == null)
+                throw new ServicesExceptions($"The User with id:{id} not exists");
         }
     }
 }

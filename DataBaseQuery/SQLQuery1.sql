@@ -12,8 +12,9 @@ CREATE TABLE Users (
     PhoneNumber VARCHAR(20),
     [Address] VARCHAR(100),
     RegistrationDate DATE not null, 
-    AccountStatus VARCHAR(20),
+    UserStatus VARCHAR(20),
 );
+
 
 CREATE TABLE SavingsAccounts (
     AccountId INT IDENTITY(1,1) PRIMARY KEY not null,
@@ -25,6 +26,7 @@ CREATE TABLE SavingsAccounts (
     InterestRate DECIMAL(5, 2),
     LastTransactionDate DATETIME,
     DailyWithdrawalLimit DECIMAL(15, 2) not null,
+	ProductType varchar(50),
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
 );
 
@@ -37,8 +39,24 @@ CREATE TABLE CurrentAccounts (
     AccountStatus VARCHAR(20),
     DailyWithdrawalLimit DECIMAL(15, 2) not null,
     LastTransactionDate DATETIME,
+	ProductType varchar(50),
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
 );
+
+CREATE TABLE CreditCards (
+    CardId INT IDENTITY(1,1) PRIMARY KEY,
+    CardNumber VARCHAR(20) NOT NULL UNIQUE,
+    UserId INT NOT NULL,
+    ExpiryDate DATE NOT NULL,
+    CreditLimit DECIMAL(15, 2) NOT NULL,
+    AvailableBalance DECIMAL(15, 2) NOT NULL,
+    CreditCardStatus VARCHAR(20),
+	ProductType varchar(50),
+	LastTransactionDate DATETIME,
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+);
+
+drop table CreditCards
 
 CREATE TABLE Loans (
     LoanId INT IDENTITY(1,1) PRIMARY KEY not null,
@@ -50,18 +68,6 @@ CREATE TABLE Loans (
     EndDate DATE,
     MonthlyPayment DECIMAL(15, 2),
     LoanStatus VARCHAR(20),
-    FOREIGN KEY (UserId) REFERENCES Users(UserId),
-);
-
-CREATE TABLE CreditCards (
-    CardId INT IDENTITY(1,1) PRIMARY KEY,
-    UserId INT NOT NULL,
-    CardNumber VARCHAR(20) NOT NULL UNIQUE,
-    CardHolderName VARCHAR(100) NOT NULL,
-    ExpiryDate DATE NOT NULL,
-    CreditLimit DECIMAL(15, 2) NOT NULL,
-    AvailableBalance DECIMAL(15, 2) NOT NULL,
-    CreditCardStatus VARCHAR(20),
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
 );
 
@@ -96,6 +102,7 @@ CREATE TABLE BankTransactions (
     Amount DECIMAL(15, 2) NOT NULL,
     [Description] VARCHAR(255),
     IssuerUserId INT NOT NULL,
+	OriginIdentifier VARCHAR(20),
     ReceiverUserId INT NOT NULL,
 	DestinationIdentifier VARCHAR(20),
     FOREIGN KEY (IssuerUserId) REFERENCES Users(UserId),
@@ -110,3 +117,8 @@ UserLoginId INT IDENTITY(1,1) PRIMARY KEY not null,
 FirstName varchar(50) not null,
 [Role] varchar(50) not null
 )
+
+INSERT INTO Users (Username, [Password], Email, FirstName, LastName, BirthDate, PhoneNumber, [Address], RegistrationDate, UserStatus)
+VALUES ('john_doe', 'securepassword123', 'john.doe@example.com', 'John', 'Doe', '1990-01-15', '123-456-7890', '123 Main St, Springfield, IL', GETDATE(), 'active');
+
+select * from Users

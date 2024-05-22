@@ -34,10 +34,8 @@ public partial class NetBankingDbContext : DbContext
 
     public virtual DbSet<Voucher> Vouchers { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         OnModelCreatingPartial(modelBuilder);
