@@ -10,18 +10,20 @@ namespace NetBanking.Core.QueryFilters
 {
     public class CheckQueryFilters
     {
-        public int AccountId { get; set; }
+        public int? AccountId { get; set; }
 
-        public string? ChequeNumber { get; set; }
+        public string? CheckNumber { get; set; }
 
-        public decimal Amount { get; set; }
-
-        public DateOnly IssuedDate { get; set; }
+        public DateOnly? IssuedDate { get; set; }
 
         public string? IssuerName { get; set; }
 
         public string? ReceiverName { get; set; }
 
-        public string? CheckStatus { get; set; }
+        public CheckStatus? CheckStatus { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }

@@ -8,7 +8,7 @@ public partial class Check : BaseEntity
 {
     public int AccountId { get; set; }
 
-    public string ChequeNumber { get; set; } = null!;
+    public string CheckNumber { get; set; } = null!;
 
     public decimal Amount { get; set; }
 

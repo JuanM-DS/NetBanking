@@ -1,5 +1,5 @@
 using NetBanking.Infrastructure.ExtensionMethods;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using NetBanking.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +22,8 @@ builder.Services.AddServices();
 builder.Services.AddOptions(configurations);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddControllers(option => option.Filters.Add<GlobalExceptions>());
 #endregion
 
 var app = builder.Build();

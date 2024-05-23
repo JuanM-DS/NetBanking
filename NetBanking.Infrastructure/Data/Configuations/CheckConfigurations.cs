@@ -17,11 +17,11 @@ namespace NetBanking.Infrastructure.Data.Configuations
             builder.ToTable("Checks");
 
             builder.HasKey(x => x.Id).HasName("PK__Checks__B816D9F077ABDBED");
-            builder.HasIndex(x => x.ChequeNumber, "UQ__Checks__D886A85BC1A2A720").IsUnique();
+            builder.HasIndex(x => x.CheckNumber, "UQ__Checks__D886A85BC1A2A720").IsUnique();
 
             builder.Property(x => x.Id).HasColumnName("ChequeId");
             builder.Property(x => x.AccountId);
-            builder.Property(x => x.ChequeNumber).HasMaxLength(20);
+            builder.Property(x => x.CheckNumber).HasMaxLength(20);
             builder.Property(x => x.Amount).HasColumnType("decimal(15,2)");
             builder.Property(x => x.IssuedDate).HasColumnType("date");
             builder.Property(x => x.IssuerName).HasMaxLength(100);

@@ -156,7 +156,7 @@ namespace NetBanking.Core.Services
             var model = await _unitOfWork.UserRepository.GetByIdAsync(id);
 
             if (model == null)
-                throw new ServicesExceptions($"The User with id:{id} not exists");
+                throw new ServicesExceptions($"The User with id:{id} doesnt exists");
         }
     }
 }

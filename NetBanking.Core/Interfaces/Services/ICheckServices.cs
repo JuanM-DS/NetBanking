@@ -10,7 +10,7 @@ namespace NetBanking.Core.Interfaces.Services
 {
     public interface ICheckServices
     {
-        public Task<Check> GetByIdAsync(int idModel);
+        public Task<Check?> GetByIdAsync(int idModel);
 
         public IEnumerable<Check> GetAll(CheckQueryFilters filters);
 
@@ -19,5 +19,6 @@ namespace NetBanking.Core.Interfaces.Services
         public Task DeleteAsync(int id);
 
         public Task AddAsync(Check model);
+
     }
 }
