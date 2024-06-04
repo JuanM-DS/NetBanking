@@ -1,4 +1,5 @@
-﻿using NetBanking.Core.Entitys;
+﻿using NetBanking.Core.DTOs;
+using NetBanking.Core.Entitys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace NetBanking.Core.Interfaces.Persistence
 
         public ICheckRepository CheckRepository { get; }
 
-        public IBaseRepository<Voucher> VoucherRepository { get; }
+        public IBaseRepository<VoucherDTO> VoucherRepository { get; }
 
         public IBaseRepository<BankTransaction> BankTransactionRepository { get; }
 

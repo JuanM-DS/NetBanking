@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Exceptions
 {
-    public class ServicesExceptions : Exception
+	public class BusinessLogicException : Exception
     {
 
-        public ServicesExceptions(string massage) : base(massage)
+        public BusinessLogicException(string massage) : base(massage)
         {}
 
 

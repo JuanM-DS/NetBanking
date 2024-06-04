@@ -30,7 +30,7 @@ namespace NetBanking.WebApplication.Controllers
 
             var userDto = _mapper.Map<UserDto>(result);
 
-            return Ok(userDto);
+            return Ok(result);
         }
     }
 }

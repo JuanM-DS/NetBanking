@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetBanking.Core.Entitys;
 
-namespace NetBanking.Core.Entitys;
+namespace NetBanking.Core.DTOs;
 
-public partial class Voucher : BaseEntity
+public partial class VoucherDTO : BaseEntity
 {
     public DateOnly TransactionDate { get; set; }
 
@@ -16,8 +17,4 @@ public partial class Voucher : BaseEntity
     public int ReceiverUserId { get; set; }
 
     public string? DestinationIdentifier { get; set; }
-
-    public virtual User IssuerUser { get; set; } = null!;
-
-    public virtual User ReceiverUser { get; set; } = null!;
 }

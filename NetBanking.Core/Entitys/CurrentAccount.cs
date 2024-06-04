@@ -16,6 +16,6 @@ public partial class CurrentAccount : BaseEntity, IBaseProduct
     public StatusType ProductStatus { get; set; }
     public DateTime? LastTransactionDate { get; set; }
     public decimal DailyWithdrawalLimit { get; set; }
-    public ProductType ProducType { get; set; }
-    public virtual User? User { get; set; }
+    public ProductType ProductType { get; set; }
+    public User User { get; set; } = null!;
 }

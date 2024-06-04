@@ -14,6 +14,19 @@ namespace NetBanking.Infrastructure.Mappings
         public Mappings()
         {
             CreateMap<UserDto, User>().ReverseMap();
-        }
-    }
+            CreateMap<User, User>();
+            CreateMap<Check, Check>()
+                .ForMember(des => des.Amount, opt => opt.MapFrom(src => src.Amount))
+                .ForMember(des => des.ReceiverName, opt => opt.MapFrom(src => src.ReceiverName))
+                .ForAllMembers(opt => opt.Ignore());
+
+            CreateMap<CreditCard, CreditCard>()
+                .ForMember(des => des.CreditLimit, opt => opt.MapFrom(src => src.CreditLimit))
+                .ForMember(des => des.Balance, opt => opt.MapFrom(src => src.Balance))
+                .ForMember(des => des.ProductStatus, opt => opt.MapFrom(src => src.ProductStatus))
+                .ForMember(des => des.DailyWithdrawalLimit, opt => opt.MapFrom(src => src.DailyWithdrawalLimit))
+                .ForAllMembers(opt => opt.Ignore());
+
+		}
+	}
 }

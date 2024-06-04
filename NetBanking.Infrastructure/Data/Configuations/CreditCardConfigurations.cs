@@ -28,11 +28,13 @@ namespace NetBanking.Infrastructure.Data.Configuations
                 x=>x.ToString(),
                 x=>(StatusType)Enum.Parse(typeof(StatusType),x)
                 );
-            builder.Property(x => x.ProducType).HasConversion(
+            builder.Property(x => x.ProductType).HasConversion(
                 x => x.ToString(),
                 x => (ProductType)Enum.Parse(typeof(ProductType), x)
                 );
+            builder.Property(x => x.DailyWithdrawalLimit).HasColumnType("decimal(15,2)").HasColumnName("DailyWithdrawalLimit").IsRequired();
             builder.Property(x => x.LastTransactionDate).HasColumnType("datetime");
+            builder.Property(x => x.OpeningDate).HasColumnType("date");
 
             builder.HasOne(x=>x.User).WithMany(d=>d.CreditCards)
                 .HasForeignKey(x=>x.UserId)

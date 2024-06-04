@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using NetBanking.Core.CustomEntitys;
 using NetBanking.Core.Entitys;
+using NetBanking.Core.Enumerables;
 using NetBanking.Core.Exceptions;
 using NetBanking.Core.Interfaces.Persistence;
 using NetBanking.Core.Interfaces.Services;
@@ -24,24 +25,34 @@ namespace NetBanking.Core.Services
         {
             await CheckValidations(model);
 
-            await _unitOfWork.CheckRepository.AddAsync(model);
+            try
+            {
+                await _unitOfWork.CheckRepository.AddAsync(model);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw new BusinessLogicException(ex.Message); ;
+            }
         }
 
         public async Task DeleteAsync(int id)
         {
-            #region Validations
-            var check = await _unitOfWork.CheckRepository.GetByIdAsync(id);
-
-            if (check == null)
-                throw new ServicesExceptions($"The Check with id:{id} doesnt exists");
-            #endregion
-
-            _unitOfWork.CheckRepository.Delete(check);
+            try
+            {
+                await _unitOfWork.CheckRepository.DeleteAsync(id);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessLogicException(ex.Message); ;
+            }
         }
 
         public IEnumerable<Check> GetAll(CheckQueryFilters filters)
         {
-            var checks = _unitOfWork.CheckRepository.GetAll();
+            var checks = _unitOfWork.CheckRepository.GetAllWithEagerLoding(x=>x.Account);
 
             #region Check Filters
             filters.PageSize = (filters.PageSize == 0) ? _paginationOptions.PageSize : filters.PageSize;
@@ -68,40 +79,45 @@ namespace NetBanking.Core.Services
 
         public async Task<Check?> GetByIdAsync(int idModel)
         {
-            return await _unitOfWork.CheckRepository.GetByIdAsync(idModel);
+            return await _unitOfWork.CheckRepository.GetByIdWithEagerLodingAsync(idModel,x=>x.Account);
         }
 
         public async Task UpdateAsync(Check model)
         {
             #region Validations
-            var check = await _unitOfWork.CheckRepository.GetByIdAsync(model.Id);
-
-            if (check == null)
-                throw new ServicesExceptions($"The Check with id:{model.Id} doesnt exists");
-
             await CheckValidations(model);
             #endregion
 
-            check.Amount = model.Amount;
-            check.ReceiverName = model.ReceiverName;
-
-            _unitOfWork.CheckRepository.Update(check);
+            try
+            {
+                await _unitOfWork.CheckRepository.UpdateAsync(model);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessLogicException(ex.Message); ;
+            }
         }
 
         private async Task CheckValidations(Check model)
         {
             #region Validations
             // account Id
-            var currentAccount = await _unitOfWork.CurrentAccountRepository.GetByIdAsync(model.Id);
+            var currentAccount = await _unitOfWork.CurrentAccountRepository.GetByIdAsync(model.AccountId);
 
             if (currentAccount == null)
-                throw new ServicesExceptions("The account doesnt exists");
+                throw new BusinessLogicException("The account doesnt exists");
 
-            // Account User Name
-            var accountUsername = currentAccount.User.FirstName;
+			var issuerUser = await _unitOfWork.UserRepository.GetByIdAsync(currentAccount.UserId);
 
-            if (accountUsername != model.IssuerName)
-                throw new ServicesExceptions("The issuer name does not match the account owner");
+			if (issuerUser == null)
+				throw new BusinessLogicException($"the User with id: {currentAccount.UserId} does not exists");
+
+			if (issuerUser.UserStatus != UserStatus.active)
+				throw new BusinessLogicException($"The User: {issuerUser.UserName} does not have required status");
+
+			if (issuerUser.FirstName != model.IssuerName)
+                throw new BusinessLogicException("The issuer name does not match the account owner");
             #endregion
         }
     }

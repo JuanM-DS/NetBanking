@@ -9,6 +9,6 @@ namespace NetBanking.Core.Interfaces.Services
 {
     public interface IProductServices
     {
-        public IEnumerable<IBaseProduct> GetProductsByUser(User user);
+        public Task<IEnumerable<IBaseProduct>> GetProductsByUserId(int userId);
     }
 }

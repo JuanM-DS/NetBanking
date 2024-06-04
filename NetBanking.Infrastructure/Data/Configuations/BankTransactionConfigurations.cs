@@ -23,6 +23,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
                 x=>x.ToString(),
                 x=>(TransactionType)Enum.Parse(typeof(TransactionType),x)
                 );
+            builder.Property(X => X.Id).HasColumnName("TransactionId");
             builder.Property(X => X.Amount).HasColumnType("decimal(15,2)");
             builder.Property(X => X.Description).HasMaxLength(255);
             builder.Property(X => X.IssuerUserId);

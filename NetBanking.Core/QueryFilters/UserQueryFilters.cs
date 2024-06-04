@@ -19,7 +19,7 @@ namespace NetBanking.Core.EntityFilters
 
         public int? BirthDateYear { get; set; }
 
-        public StatusType? UserStatus { get; set; }
+        public UserStatus? UserStatus { get; set; }
 
         public int PageSize { get; set; }
 

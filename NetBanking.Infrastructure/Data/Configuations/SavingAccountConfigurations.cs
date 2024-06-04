@@ -30,11 +30,11 @@ namespace NetBanking.Infrastructure.Data.Configuations
             entity.Property(x => x.Id).HasColumnName("AccountId");
 
             entity.Property(e => e.Balance).HasColumnType("decimal(15, 2)");
-            entity.Property(e => e.DailyWithdrawalLimit).HasColumnType("decimal(15, 2)");
+            entity.Property(e => e.DailyWithdrawalLimit).HasColumnType("decimal(15, 2)").HasColumnName("DailyWithdrawalLimit").IsRequired();
             entity.Property(e => e.InterestRate).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.LastTransactionDate).HasColumnType("datetime");
             entity.Property(e => e.OpeningDate).HasColumnType("date");
-            entity.Property(x => x.ProducType).HasConversion(
+            entity.Property(x => x.ProductType).HasConversion(
                 x => x.ToString(),
                 x => (ProductType)Enum.Parse(typeof(ProductType), x)
                 );

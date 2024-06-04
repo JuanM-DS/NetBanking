@@ -17,7 +17,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
             builder.ToTable("CurrentAccounts");
             builder.HasIndex(x => x.IdentifierNumber, "UQ__CurrentA__BE2ACD6F21F1E4F8").IsUnique();
 
-            builder.Property(x => x.Id).HasColumnName("AccountId").IsUnicode(false);
+            builder.Property(x => x.Id).HasColumnName("AccountId");
             builder.Property(x=>x.IdentifierNumber).HasMaxLength(20).HasColumnName("AccountNumber");
             builder.Property(x => x.UserId);
             builder.Property(x=>x.Balance).HasColumnType("decimal(15,2)");
@@ -26,9 +26,9 @@ namespace NetBanking.Infrastructure.Data.Configuations
                 x=>x.ToString(),
                 x=>(StatusType)Enum.Parse(typeof(StatusType),x)
                 );
-            builder.Property(x => x.DailyWithdrawalLimit).HasColumnType("decimal(15,2)");
+            builder.Property(x => x.DailyWithdrawalLimit).HasColumnType("decimal(15,2)").HasColumnName("DailyWithdrawalLimit").IsRequired();
             builder.Property(x => x.LastTransactionDate).HasColumnType("datetime");
-            builder.Property(x => x.ProducType).HasConversion(
+            builder.Property(x => x.ProductType).HasConversion(
                 x => x.ToString(),
                 x => (ProductType)Enum.Parse(typeof(ProductType), x)
                 );

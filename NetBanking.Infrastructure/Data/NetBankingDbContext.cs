@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using NetBanking.Core.DTOs;
 using NetBanking.Core.Entitys;
 namespace NetBanking.Infrastructure.Data;
 
@@ -32,7 +33,7 @@ public partial class NetBankingDbContext : DbContext
 
     public virtual DbSet<UserLogin> UsersLogins { get; set; }
 
-    public virtual DbSet<Voucher> Vouchers { get; set; }
+    public virtual DbSet<VoucherDTO> Vouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

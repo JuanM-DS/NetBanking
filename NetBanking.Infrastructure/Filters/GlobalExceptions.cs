@@ -10,7 +10,7 @@ namespace NetBanking.Infrastructure.Filters
     {
         public void OnException(ExceptionContext filterContext)
         {
-            if(filterContext.Exception.GetType() == typeof(ServicesExceptions))
+            if(filterContext.Exception.GetType() == typeof(BusinessLogicException))
             {
                 var exception = filterContext.Exception as Exception;
 

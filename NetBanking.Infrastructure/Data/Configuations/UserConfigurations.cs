@@ -21,11 +21,6 @@ namespace NetBanking.Infrastructure.Data.Configuations
 
             entity.HasIndex(e => e.Email, "UQ__Users__A9D10534DFF426E4").IsUnique();
 
-            entity.Property(e => e.UserStatus).HasColumnName("UserStatus")
-                .HasConversion(
-                    x => x.ToString(),
-                    x => (StatusType)Enum.Parse(typeof(StatusType),x)
-                );
             entity.Property(x => x.Id).HasColumnName("UserId");
 
             entity.Property(e => e.Address)
@@ -46,6 +41,10 @@ namespace NetBanking.Infrastructure.Data.Configuations
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+            entity.Property(x => x.UserStatus).HasConversion(
+                  x => string.IsNullOrEmpty(x.ToString().ToLower()) ? UserStatus.inactive.ToString().ToLower() : x.ToString().ToLower(),
+                  x => string.IsNullOrEmpty(x) ? UserStatus.inactive : (UserStatus)Enum.Parse(typeof(UserStatus), x, true)
+                );
             entity.Property(e => e.UserName).HasColumnName("Username")
                 .HasMaxLength(50)
                 .IsUnicode(false);

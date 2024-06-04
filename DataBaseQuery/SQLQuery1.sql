@@ -12,7 +12,6 @@ CREATE TABLE Users (
     PhoneNumber VARCHAR(20),
     [Address] VARCHAR(100),
     RegistrationDate DATE not null, 
-    UserStatus VARCHAR(20),
 );
 
 
@@ -53,10 +52,11 @@ CREATE TABLE CreditCards (
     CreditCardStatus VARCHAR(20),
 	ProductType varchar(50),
 	LastTransactionDate DATETIME,
+    DailyWithdrawalLimit DECIMAL(15, 2) not null,
+    OpeningDate DATE NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
 );
 
-drop table CreditCards
 
 CREATE TABLE Loans (
     LoanId INT IDENTITY(1,1) PRIMARY KEY not null,
@@ -118,7 +118,7 @@ FirstName varchar(50) not null,
 [Role] varchar(50) not null
 )
 
-INSERT INTO Users (Username, [Password], Email, FirstName, LastName, BirthDate, PhoneNumber, [Address], RegistrationDate, UserStatus)
-VALUES ('john_doe', 'securepassword123', 'john.doe@example.com', 'John', 'Doe', '1990-01-15', '123-456-7890', '123 Main St, Springfield, IL', GETDATE(), 'active');
+INSERT INTO Users (Username, [Password], Email, FirstName, LastName, BirthDate, PhoneNumber, [Address], RegistrationDate)
+VALUES ('john_doe', 'securepassword123', 'john.doe@example.com', 'John', 'Doe', '1990-01-15', '123-456-7890', '123 Main St, Springfield, IL', GETDATE());
 
 select * from Users

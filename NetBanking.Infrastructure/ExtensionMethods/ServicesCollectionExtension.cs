@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NetBanking.Core.Interfaces.Persistence;
 using NetBanking.Core.Interfaces.Services;
 using NetBanking.Core.Options;
@@ -11,12 +12,12 @@ namespace NetBanking.Infrastructure.ExtensionMethods
 {
     public static class ServicesCollectionExtension
     {
-
         public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configurations)
         {
             services.AddDbContext<NetBankingDbContext>(provider => provider.UseSqlServer(
                 configurations.GetConnectionString("SqlConectionString")
-                ));
+                ).EnableSensitiveDataLogging()
+           .LogTo(Console.WriteLine, LogLevel.Information));
 
             return services;
         }

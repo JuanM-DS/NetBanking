@@ -19,7 +19,7 @@ namespace NetBanking.Infrastructure.Data.Configuations
 
             builder.HasKey(x=>x.Id).HasName("PK__UsersLog__107D568CBC9DEBFA");
 
-            builder.Property(x => x.Id);
+            builder.Property(x => x.Id).HasColumnName("UserLoginId");
             builder.Property(x => x.UserName).HasMaxLength(50);
             builder.Property(x => x.Password).HasMaxLength(250);
             builder.Property(x => x.FirstName).HasMaxLength(50);

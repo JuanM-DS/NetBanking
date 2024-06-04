@@ -23,7 +23,7 @@ namespace NetBanking.Core.Entitys
 
         public decimal DailyWithdrawalLimit { get; set; }
 
-        public ProductType ProducType { get; set; }
+        public ProductType ProductType { get; set; }
 
     }
 }
